@@ -1,31 +1,31 @@
 use std::collections::HashSet;
 
 pub fn valid_sudoku(board:Vec<Vec<char>>) -> bool {
-    let mut rows:Vec<HashSet<u32>> = Vec::new();
-    let mut cols:Vec<HashSet<u32>> = Vec::new();
-    let mut boxes:Vec<HashSet<u32>> = Vec::new();
-    
-    for _ in 0..9 {
-        rows.push(HashSet::new());
-        cols.push(HashSet::new());
-        boxes.push(HashSet::new());
-    }
-    for r in 0..9 {
-        for c in 0..9 {
-            let car:char = board[r][c];
-            if car == '.' {
+    let mut rows:Vec<HashSet<i32>> = vec![HashSet::new(); 9];
+    let mut cols:Vec<HashSet<i32>> = vec![HashSet::new(); 9];
+    let mut boxs:Vec<HashSet<i32>> = vec![HashSet::new(); 9];
+
+    for row in 0..9 as usize {
+        for col in 0..9 as usize{
+            let c:char = board[row][col];
+            if c == '.'{
                 continue;
             }
-            let num:u32 = car.to_digit(10).unwrap();
-            let box_num:usize = (r/3)*3 + (c/3);
-            if rows[r].contains(&num) || cols[c].contains(&num) || boxes[box_num].contains(&num){
+            let num:i32 = c.to_digit(10).unwrap() as i32;
+            let box_index:usize = (row/3)*3 + (col/3);
+            if rows.get(row).unwrap().contains(&num) ||
+            cols.get(col).unwrap().contains(&num) ||
+            boxs.get(box_index).unwrap().contains(&num)
+            {
                 return false;
             }
-            rows[r].insert(num);
-            cols[c].insert(num);
-            boxes[box_num].insert(num);
+            rows.get_mut(row).unwrap().insert(num);
+            cols.get_mut(col).unwrap().insert(num);
+            boxs.get_mut(box_index).unwrap().insert(num);
+
         }
     }
+    
     return true;
 }
 

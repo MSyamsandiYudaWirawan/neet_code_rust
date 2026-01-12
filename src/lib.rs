@@ -1,7 +1,7 @@
 pub mod arrays_and_hashing;
 
 // Add more modules as you progress through different categories
-// pub mod two_pointers;
+pub mod two_pointers;
 // pub mod sliding_window;
 // pub mod stack;
 // pub mod binary_search;

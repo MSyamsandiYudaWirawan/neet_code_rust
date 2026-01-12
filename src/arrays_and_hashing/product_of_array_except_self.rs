@@ -1,22 +1,18 @@
 pub fn product_of_array_except_self(nums: Vec<i32>) -> Vec<i32>{
-    let mut res:Vec<i32> = Vec::new();
+   let mut res:Vec<i32> = vec![1;nums.len()];
 
-    for _ in &nums {
-        res.push(1);
-    }
+   let mut left_prod:i32 = 1;
+   for i in 0..nums.len(){
+    res[i] *= left_prod;
+    left_prod *= nums[i];
+   }
+   let mut right_prod:i32 = 1;
+   for i in (0..nums.len()).rev() {
+    res[i] *= right_prod;
+    right_prod *= nums[i];
+   }
 
-    let mut left_prod:i32 = 1;
-    for i in 0..nums.len() {
-        res[i]*= left_prod;
-        left_prod *=nums[i];
-    }
-    
-    let mut right_prod:i32 = 1;
-    for i in (0..nums.len()).rev() {
-        res[i]*=right_prod;
-        right_prod*=nums[i];
-    }
-    return res;
+   return res;
 }
 
 #[cfg(test)]

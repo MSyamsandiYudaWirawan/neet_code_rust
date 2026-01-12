@@ -1,17 +1,17 @@
 use std::collections::HashMap;
 
 pub fn group_anagrams(strs:Vec<String>) -> Vec<Vec<String>>{
+    let mut map:HashMap<String,Vec<String>> =  HashMap::new();
 
-    let mut map:HashMap<String, Vec<String>> = HashMap::new();
+    for str in strs{
+        let mut chars:Vec<char>= str.chars().collect();
+        chars.sort();
+        let sorted_string = chars.into_iter().collect();
 
-    for str in strs {
-        let mut carr:Vec<char> = str.chars().collect();
-        carr.sort();
-        let sorted_s:String = carr.into_iter().collect();
-
-        map.entry(sorted_s).or_insert(Vec::new()).push(str);
+        map.entry(sorted_string).or_insert(Vec::new()).push(str);
     }
-    map.into_values().collect()
+
+    return map.into_values().collect();
 }
 
 #[cfg(test)]

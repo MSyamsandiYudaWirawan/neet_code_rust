@@ -6,11 +6,13 @@ pub fn valid_anagram(s: String, t: String) -> bool {
     }
     let mut ms:HashMap<char,i32> = HashMap::new();
     let mut mt:HashMap<char,i32> = HashMap::new();
-    for (ct,cs) in s.chars().zip(t.chars()){
-        *ms.entry(cs).or_insert(0)+=1;
-        *mt.entry(ct).or_insert(0)+=1;
+
+    for (cs,ct) in s.chars().zip(t.chars()) {
+        *ms.entry(cs).or_insert(0) += 1;
+        *mt.entry(ct).or_insert(0) += 1;
     }
-    return ms==mt;
+
+    return ms == mt;
 }
 
 #[cfg(test)]

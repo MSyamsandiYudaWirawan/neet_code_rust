@@ -1,19 +1,17 @@
-use std::collections::HashSet;
+use std::{cmp, collections::HashSet};
 
-pub fn longest_consecutive_sequence(nums:Vec<i32>) -> i32{
-    let mut set:HashSet<i32> = HashSet::new();
+pub fn longest_consecutive_sequence(nums: Vec<i32>) -> i32 {
+    let set:HashSet<i32> = nums.iter().cloned().collect();
     let mut res:i32 = 0;
-    
-    for num in &nums {
-        set.insert(*num);
-    }
-    
-    for num in &nums {
-        let mut freq:i32 = 1;
-        while set.contains(&(num + freq)){
-            freq+=1;
+    for &num in &set{
+        if !set.contains(&(num+1)){
+            let mut freq:i32 = 1;
+            while set.contains(&(num-freq)){
+                freq += 1;
+            }
+            res = cmp::max(freq, res);
         }
-        res = res.max(freq);
+        
     }
     return res;
 }
@@ -24,11 +22,14 @@ mod tests {
 
     #[test]
     fn test_basic() {
-        assert_eq!(longest_consecutive_sequence(vec![100,4,200,1,3,2]), 4);
+        assert_eq!(longest_consecutive_sequence(vec![100, 4, 200, 1, 3, 2]), 4);
     }
 
     #[test]
     fn test_single() {
-        assert_eq!(longest_consecutive_sequence(vec![0,3,7,2,5,8,4,6,0,1]), 9);
+        assert_eq!(
+            longest_consecutive_sequence(vec![0, 3, 7, 2, 5, 8, 4, 6, 0, 1]),
+            9
+        );
     }
 }

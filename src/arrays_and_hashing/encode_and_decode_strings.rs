@@ -1,32 +1,32 @@
+pub fn encode(strs: Vec<String>) -> String {
+    let mut string: String = String::new();
 
-pub fn encode(strs:Vec<String>) -> String{
-    let mut result = String::new();
-    for s in strs {
-        result.push_str(&s.len().to_string());
-        result.push_str("#");
-        result.push_str(&s);
+    for str in strs {
+        string.push_str(&str.len().to_string());
+        string.push_str("#");
+        string.push_str(&str);
     }
-    return result;
+
+    return string;
 }
 
-pub fn decode(str:String) -> Vec<String>{
-
-    let mut i:usize = 0;
-    let byte:Vec<u8> = str.as_bytes().to_vec();
-    let mut result:Vec<String> = Vec::new();
-
-    while i < str.len() {
-        let mut j:usize = i;
-        while byte[j] != b'#' {
-            j+=1;
+pub fn decode(str: String) -> Vec<String> {
+    let mut i: usize = 0;
+    let mut res: Vec<String> = Vec::new();
+    let char: Vec<char> = str.chars().collect();
+    while i < char.len() {
+        let mut j: usize = i;
+        while char[j] != '#' {
+            j = j + 1;
         }
-        let len:i32 = String::from_utf8(byte[i..j].to_vec()).unwrap().parse().unwrap();
-        i=j+1;
-        let s = String::from_utf8(byte[i..i+len as usize].to_vec()).unwrap();
-        result.push(s);
-        i=len as usize + i;
+        let length_str: String = char[i..j].iter().collect();
+        let length: usize = length_str.parse::<usize>().unwrap();
+        i = j + 1;
+        let s: String = char[i..i + length].iter().collect();
+        i = i + length;
+        res.push(s);
     }
-    return result;
+    return res;
 }
 
 #[cfg(test)]
