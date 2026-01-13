@@ -1,20 +1,19 @@
 use std::cmp;
 
 pub fn max_area(height: Vec<i32>) -> i32 {
-
+    let mut res:i32 = 0;
     let mut l:usize = 0;
     let mut r:usize = height.len() - 1;
-    let mut res:i32 = 0;
 
-    while l<r {
-        let area:i32 = (r-l) as i32 * (cmp::min(height[l], height[r]));
+    while l<r{
+        let area:i32 = (r-l) as i32 * cmp::min(height[l],height[r]);
         res = cmp::max(res,area);
-        if height[l] > height[r] {
-            r-=1;
-        }else{
+        if height[l] < height[r] {
             l+=1;
         }
-
+        else{
+            r-=1;
+        }
     }
     return res;
 }

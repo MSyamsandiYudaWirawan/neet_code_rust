@@ -5,27 +5,25 @@ pub fn valid_sudoku(board:Vec<Vec<char>>) -> bool {
     let mut cols:Vec<HashSet<i32>> = vec![HashSet::new(); 9];
     let mut boxs:Vec<HashSet<i32>> = vec![HashSet::new(); 9];
 
-    for row in 0..9 as usize {
-        for col in 0..9 as usize{
+    for row in 0..9usize {
+        for col in 0..9usize {
             let c:char = board[row][col];
-            if c == '.'{
+            if c == '.' {
                 continue;
             }
-            let num:i32 = c.to_digit(10).unwrap() as i32;
-            let box_index:usize = (row/3)*3 + (col/3);
-            if rows.get(row).unwrap().contains(&num) ||
-            cols.get(col).unwrap().contains(&num) ||
-            boxs.get(box_index).unwrap().contains(&num)
-            {
+            let n:i32 = c.to_digit(10).unwrap() as i32;
+            let box_idx:usize = (row/3)*3 + (col/3);
+            if rows.get(row).unwrap().contains(&n) ||
+                cols.get(col).unwrap().contains(&n) ||
+                boxs.get(box_idx).unwrap().contains(&n) {
                 return false;
             }
-            rows.get_mut(row).unwrap().insert(num);
-            cols.get_mut(col).unwrap().insert(num);
-            boxs.get_mut(box_index).unwrap().insert(num);
-
+            rows.get_mut(row).unwrap().insert(n);
+            cols.get_mut(col).unwrap().insert(n);
+            boxs.get_mut(box_idx).unwrap().insert(n);
         }
     }
-    
+
     return true;
 }
 

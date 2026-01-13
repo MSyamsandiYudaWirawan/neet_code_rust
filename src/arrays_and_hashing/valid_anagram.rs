@@ -1,18 +1,17 @@
 use std::collections::HashMap;
 
 pub fn valid_anagram(s: String, t: String) -> bool {
-    if s.len() != t.len(){
+    if s.len() != t.len() {
         return false;
     }
-    let mut ms:HashMap<char,i32> = HashMap::new();
-    let mut mt:HashMap<char,i32> = HashMap::new();
+    let mut maps:HashMap<char,i32> = HashMap::new();
+    let mut mapt:HashMap<char,i32> = HashMap::new();
 
     for (cs,ct) in s.chars().zip(t.chars()) {
-        *ms.entry(cs).or_insert(0) += 1;
-        *mt.entry(ct).or_insert(0) += 1;
+        *maps.entry(cs).or_insert(0) += 1;
+        *mapt.entry(ct).or_insert(0) += 1;
     }
-
-    return ms == mt;
+    return maps == mapt;
 }
 
 #[cfg(test)]

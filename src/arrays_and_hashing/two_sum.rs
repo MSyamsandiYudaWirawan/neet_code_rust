@@ -1,15 +1,15 @@
 use std::collections::HashMap;
 
 pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
-    let mut map:HashMap<i32,usize> = HashMap::new();
-    for i in 0..nums.len(){
-        let diff:i32 = target - nums[i];
+    let mut map:HashMap<i32,i32> = HashMap::new();
+    for i in 0..nums.len() {
+        let diff = target - nums[i];
         if let Some(index) = map.get(&diff){
-            return vec![*index as i32,i as i32]
+            return vec![*index,i as i32];
         }
-        map.insert(nums[i],i);
+        map.insert(nums[i],i as i32);
     }
-  return Vec::new();
+   return Vec::new();
 }
 
 #[cfg(test)]

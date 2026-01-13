@@ -1,16 +1,16 @@
 pub fn is_palindrome(s: String) -> bool {
-    let char:Vec<char> = s.chars().collect();
+    let chars:Vec<char> = s.chars().collect();
     let mut l:usize = 0;
-    let mut r:usize = char.len() -1;
+    let mut r:usize = chars.len() - 1;
 
     while l<r {
-        while l<r && !is_alnum(char[l]){
+        while l<r && !is_alnum(chars[l]){
             l+=1;
         }
-        while l<r && !is_alnum(char[r]) {
+        while l<r && !is_alnum(chars[r]){
             r-=1;
         }
-        if l<r && char[l].to_ascii_lowercase() != char[r].to_ascii_lowercase(){
+        if l<r && chars[l].to_ascii_lowercase() != chars[r].to_ascii_lowercase() {
             return false;
         }
         l+=1;

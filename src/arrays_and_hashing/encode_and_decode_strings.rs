@@ -1,28 +1,27 @@
 pub fn encode(strs: Vec<String>) -> String {
-    let mut string: String = String::new();
-
+    let mut res:String = String::new();
     for str in strs {
-        string.push_str(&str.len().to_string());
-        string.push_str("#");
-        string.push_str(&str);
+        res.push_str(&str.len().to_string());
+        res.push_str("#");
+        res.push_str(&str);
     }
-
-    return string;
+    return res;
 }
 
 pub fn decode(str: String) -> Vec<String> {
-    let mut i: usize = 0;
-    let mut res: Vec<String> = Vec::new();
-    let char: Vec<char> = str.chars().collect();
-    while i < char.len() {
-        let mut j: usize = i;
-        while char[j] != '#' {
-            j = j + 1;
+    let mut res:Vec<String> = Vec::new();
+    let chars:Vec<char> = str.chars().collect();
+    let mut i:usize = 0;
+
+    while i<chars.len() {
+        let mut j:usize = i;
+        while chars[j] != '#' {
+            j +=1;
         }
-        let length_str: String = char[i..j].iter().collect();
-        let length: usize = length_str.parse::<usize>().unwrap();
+        let length_str:String = chars[i..j].iter().collect();
         i = j + 1;
-        let s: String = char[i..i + length].iter().collect();
+        let length:usize = length_str.parse::<usize>().unwrap();
+        let s:String = chars[i..i+length].iter().collect();
         i = i + length;
         res.push(s);
     }
