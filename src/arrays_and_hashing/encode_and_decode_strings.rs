@@ -1,5 +1,5 @@
 pub fn encode(strs: Vec<String>) -> String {
-    let mut res:String = String::new();
+    let mut res: String = String::new();
     for str in strs {
         res.push_str(&str.len().to_string());
         res.push_str("#");
@@ -9,21 +9,19 @@ pub fn encode(strs: Vec<String>) -> String {
 }
 
 pub fn decode(str: String) -> Vec<String> {
-    let mut res:Vec<String> = Vec::new();
-    let chars:Vec<char> = str.chars().collect();
-    let mut i:usize = 0;
-
-    while i<chars.len() {
+    let mut res: Vec<String> = Vec::new();
+    let mut i: usize = 0;
+    let bytes: &[u8] = str.as_bytes();
+    while i < str.len(){
         let mut j:usize = i;
-        while chars[j] != '#' {
-            j +=1;
+        while bytes[j] != b'#'{
+            j+=1;
         }
-        let length_str:String = chars[i..j].iter().collect();
-        i = j + 1;
-        let length:usize = length_str.parse::<usize>().unwrap();
-        let s:String = chars[i..i+length].iter().collect();
-        i = i + length;
-        res.push(s);
+        let len:usize = str::from_utf8(&bytes[i..j]).unwrap().parse().unwrap();
+        i=j+1;
+        let s:&str = str::from_utf8(&bytes[i..i+len]).unwrap();
+        i=i+len;
+        res.push(s.to_string());
     }
     return res;
 }

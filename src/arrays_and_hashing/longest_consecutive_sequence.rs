@@ -2,17 +2,20 @@ use std::{cmp, collections::HashSet};
 
 pub fn longest_consecutive_sequence(nums: Vec<i32>) -> i32 {
     let mut res:i32 = 0;
-    let set:HashSet<i32> = HashSet::from_iter(nums.iter().cloned());
-
+    let mut set:HashSet<i32> = HashSet::new();
+    for num in &nums {
+        set.insert(*num);
+    }
     for num in set.iter() {
         let mut count:i32 = 1;
-        if !set.contains(&(num - 1)){
-            while set.contains(&(num + count)){
-                count +=1;
+        if !set.contains(&(num-1)) {
+            while set.contains(&(num + count)) {
+                count+=1;
             }
             res = cmp::max(res,count);
         }
     }
+
     return res;
 }
 

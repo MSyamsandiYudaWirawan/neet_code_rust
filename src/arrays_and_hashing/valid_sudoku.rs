@@ -7,20 +7,21 @@ pub fn valid_sudoku(board:Vec<Vec<char>>) -> bool {
 
     for row in 0..9usize {
         for col in 0..9usize {
-            let c:char = board[row][col];
-            if c == '.' {
+            let c:u8 = board[row][col] as u8;
+            if c == '.' as u8 {
                 continue;
             }
-            let n:i32 = c.to_digit(10).unwrap() as i32;
-            let box_idx:usize = (row/3)*3 + (col/3);
-            if rows.get(row).unwrap().contains(&n) ||
-                cols.get(col).unwrap().contains(&n) ||
-                boxs.get(box_idx).unwrap().contains(&n) {
+            let num = c - b'0';
+            let idx_boxs = (row/3)*3 + (col/3);
+
+            if rows[row].contains(&(num as i32)) ||
+                cols[col].contains(&(num as i32)) ||
+                boxs[idx_boxs].contains(&(num as i32)) {
                 return false;
             }
-            rows.get_mut(row).unwrap().insert(n);
-            cols.get_mut(col).unwrap().insert(n);
-            boxs.get_mut(box_idx).unwrap().insert(n);
+            rows[row].insert(num as i32);
+            cols[col].insert(num as i32);
+            boxs[idx_boxs].insert(num as i32);
         }
     }
 

@@ -1,20 +1,22 @@
-use std::cmp;
-use std::collections::HashSet;
+use std::collections::{HashSet};
+use std::cmp::max;
+
 
 pub fn length_of_longest_substring(s: String) -> i32 {
-    let mut res:i32 = 0;
+    let mut res: i32 = 0;
+    let mut set:HashSet<u8> = HashSet::new();
     let mut l:usize = 0;
-    let chars:Vec<char> = s.chars().collect();
-    let mut set:HashSet<char> = HashSet::new();
+    let bytes:&[u8] = s.as_bytes();
 
-    for r in 0..chars.len(){
-        while set.contains(&chars[r]){
-            set.remove(&chars[l]);
+    for r in 0..bytes.len() {
+        while set.contains(&bytes[r]) {
+            set.remove(&bytes[l]);
             l+=1;
         }
-        set.insert(chars[r]);
-        res = cmp::max(res,(r-l+1) as i32);
+        set.insert(bytes[r]);
+        res = max(res,(r-l+1) as i32);
     }
+
     return res;
 }
 

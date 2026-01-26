@@ -8,7 +8,7 @@ pub fn contains_duplicate(nums: Vec<i32>) -> bool {
         }
         set.insert(num);
     }
-    return false;
+   return false;
 }
 
 #[cfg(test)]

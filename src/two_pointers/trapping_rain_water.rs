@@ -1,23 +1,24 @@
 use std::cmp;
 
 pub fn trap(height: Vec<i32>) -> i32 {
+    let mut res: i32 = 0;
     let mut l:usize = 0;
-    let mut r:usize = height.len() - 1;
-    let mut l_max:i32 = height[l];
-    let mut r_max:i32 = height[r];
-    let mut res:i32 = 0;
+    let mut r:usize = height.len()-1;
+    let mut max_left:i32 = height[l];
+    let mut max_right:i32 = height[r];
 
     while l<r {
-        if l_max > r_max {
-            r-=1;
-            r_max = cmp::max(height[r],r_max);
-            res += r_max - height[r];
-        }else {
+        if max_left < max_right {
             l+=1;
-            l_max = cmp::max(height[l],l_max);
-            res += l_max - height[l];
+            max_left = cmp::max(max_left,height[l]);
+            res += max_left - height[l];
+        }else {
+            r-=1;
+            max_right = cmp::max(max_right,height[r]);
+            res += max_right - height[r];
         }
     }
+
     return res;
 }
 

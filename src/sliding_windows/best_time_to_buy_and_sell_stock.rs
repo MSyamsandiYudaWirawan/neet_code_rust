@@ -1,15 +1,14 @@
 use std::cmp;
 
 pub fn max_profit(prices: Vec<i32>) -> i32 {
-    let mut res:i32 = 0;
+    let mut res: i32 = 0;
     let mut l:usize = 0;
-    for r in 1..prices.len() {
-        let mut profit:i32 = 0;
-        if prices[l] <= prices[r]{
+    for r in 0..prices.len() {
+        let mut profit = 0;
+        if prices[l] < prices[r]{
             profit = prices[r] - prices[l];
-        }
-        else {
-            l = r;
+        }else {
+            l=r;
         }
         res = cmp::max(res,profit);
     }

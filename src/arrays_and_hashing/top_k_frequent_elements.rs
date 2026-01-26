@@ -2,16 +2,16 @@ use std::collections::{BinaryHeap, HashMap};
 
 pub fn top_k_frequent_elements(nums:Vec<i32>, k:i32) -> Vec<i32>{
     let mut map:HashMap<i32,i32> = HashMap::new();
-    for num in nums {
-        *map.entry(num).or_insert(0) += 1;
-    }
-    let mut heap:BinaryHeap<(i32,i32)> = BinaryHeap::new();
-    for (key,value) in map.into_iter() {
-        heap.push((value,key));
-    }
+    let mut binary:BinaryHeap<(i32,i32)> = BinaryHeap::new();
     let mut res:Vec<i32> = Vec::with_capacity(k as usize);
-    for _ in 0..k{
-        res.push(heap.pop().unwrap().1);
+    for num in nums {
+        *map.entry(num).or_insert(0) +=1;
+    }
+    for (key, value) in map {
+        binary.push((value,key));
+    }
+    for _ in 0..k {
+        res.push(binary.pop().unwrap().1);
     }
     return res;
 }

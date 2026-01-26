@@ -3,5 +3,14 @@
 version = 4
 
 [[package]]
+name = "cmp"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "587e17a70c5890bc44333ab0c0d960cb2b1d952d62bfa7b7a4e21519b5b447d3"
+
+[[package]]
 name = "neet_code"
 version = "0.1.0"
+dependencies = [
+ "cmp",
+]
